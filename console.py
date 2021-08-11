@@ -130,7 +130,8 @@ class HBNBCommand(cmd.Cmd):
             new_list.append(item)
         my_dict = dict(new_list)
         for k, v in my_dict.items():
-            if (v[0] == '"' and v[-1] == '"') or (v[0] == "'" and v[-1] == "'"):
+            if (v[0] == '"' and v[-1] == '"')\
+               or (v[0] == "'" and v[-1] == "'"):
                 v = v[1:-1]
                 if '"' or "'" in v:
                     my_dict[k] = v.replace('"', '\"')
