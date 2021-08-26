@@ -17,7 +17,7 @@ def do_deploy(archive_path):
     """ Script that distributes an archive to my web servers"""
     if os.path.isfile(archive_path) is False:
         return False
-    try
+    try:
         archive_split = archive_path.split('/')
         with_extension = archive_split[1]
         rm_extension = with_extension.split('.')
