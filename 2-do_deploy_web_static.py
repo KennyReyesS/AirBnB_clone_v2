@@ -14,6 +14,7 @@ env.hosts = ['34.139.28.87', '54.164.112.178']
 
 
 def do_deploy(archive_path):
+    """ Script that distributes an archive to my web servers"""
     if os.path.isfile(archive_path) is False:
         print("no se encontro")
         return False
