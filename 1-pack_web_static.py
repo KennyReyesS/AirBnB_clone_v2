@@ -12,12 +12,13 @@ import os
 
 def do_pack():
     """return the archive path if the archive has been correctly generated."""
-    if os.path.isdir('versions') is False:
-        local("sudo mkdir versions")
-        now = datetime.now()
-        timeformat = now.strftime("%Y%m%d%H%M%S")
-        new_file = "versions/web_static_{}.tgz".format(timeformat)
-        local("sudo tar -cvzf {} web_static".format(new_file))
-        return new_file
-    else:
+    try:
+        if os.path.isdir('versions') is False:
+            local("sudo mkdir versions")
+            now = datetime.now()
+            timeformat = now.strftime("%Y%m%d%H%M%S")
+            new_file = "versions/web_static_{}.tgz".format(timeformat)
+            local("sudo tar -cvzf {} web_static".format(new_file))
+            return new_file
+    except:
         return None
