@@ -17,10 +17,11 @@ def do_deploy(archive_path):
     """ Script that distributes an archive to my web servers"""
     if os.path.isfile(archive_path) is False:
         return False
-        archive_split = archive_path.split('/')
-        with_extension = archive_split[1]
-        rm_extension = with_extension.split('.')
-        name_archive = rm_extension[0]
+
+    archive_split = archive_path.split('/')
+    with_extension = archive_split[1]
+    rm_extension = with_extension.split('.')
+    name_archive = rm_extension[0]
     try:
         put(archive_path, "/tmp/{}".format(with_extension))
         sudo("mkdir -p /data/web_static/releases/{}/".format(name_archive))
