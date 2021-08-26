@@ -36,5 +36,5 @@ def do_deploy(archive_path):
         sudo("ln -s /data/web_static/releases/{}/ "
              "/data/web_static/current".format(name_archive))
         return True
-    except:
+    except BaseException:
         return False
