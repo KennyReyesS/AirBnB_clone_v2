@@ -19,5 +19,5 @@ def do_pack():
         now = datetime.now()
         timeformat = now.strftime("%Y%m%d%H%M%S")
         new_file = "versions/web_static_{}.tgz".format(timeformat)
-        local("sudo tar -czvf {} web_static".format(new_file))
+        local("sudo tar -cvzf {} web_static".format(new_file))
         return new_file
