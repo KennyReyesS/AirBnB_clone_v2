@@ -12,7 +12,7 @@ sudo unlink /data/web_static/current
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -hR ubuntu:ubuntu /data/
 my_string="\\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}"
-sudo sed -i "/server_name _;/a $my_string" /etc/nginx/sites-available/default
+sudo sed -i "38i $my_string" /etc/nginx/sites-available/default
 sudo service nginx reload
 sudo service nginx restart
 exit 0
