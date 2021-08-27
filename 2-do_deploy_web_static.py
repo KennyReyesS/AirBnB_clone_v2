@@ -5,7 +5,7 @@ an archive to your web servers, using the function do_deploy:
 """
 
 
-from fabric.api import put, env, sudo
+from fabric.api import put, env, run
 import os
 
 
@@ -24,24 +24,24 @@ def do_deploy(archive_path):
     name_archive = rm_extension[0]
     if put(archive_path, "/tmp/{}".format(with_extension)).failed:
         return False
-    if sudo("mkdir -p /data/web_static/releases/{}/".format(
+    if run("mkdir -p /data/web_static/releases/{}/".format(
             name_archive)).failed:
         return False
-    if sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
             with_extension, name_archive)).failed:
         return False
-    if sudo("rm /tmp/{}".format(with_extension)).failed:
+    if run("rm /tmp/{}".format(with_extension)).failed:
         return False
-    if sudo("mv /data/web_static/releases/{}/web_static/* "
+    if run("mv /data/web_static/releases/{}/web_static/* "
             "/data/web_static/releases/{}/".format(
                 name_archive, name_archive)).failed:
         return False
-    if sudo("rm -rf /data/web_static/releases/{}/web_static".format(
+    if run("rm -rf /data/web_static/releases/{}/web_static".format(
             name_archive)).failed:
         return False
-    if sudo("rm -rf /data/web_static/current").failed:
+    if run("rm -rf /data/web_static/current").failed:
         return False
-    if sudo("ln -s /data/web_static/releases/{}/ "
+    if run("ln -s /data/web_static/releases/{}/ "
             "/data/web_static/current".format(name_archive)).failed:
         return False
     return True
