@@ -13,7 +13,8 @@ class FileStorage:
         if cls:
             new_dict = {}
             for key, obj in FileStorage.__objects.items():
-                if cls.__name__ in key:
+                classe = key.split(".")
+                if classe[0] == cls.__name__:
                     new_dict[key] = obj
             return new_dict
         else:

@@ -22,9 +22,6 @@ class DBStorage:
     __engine = None
     __session = None
 
-    classes = {
-        'State': State
-    }
 
     def __init__(self):
         user = getenv('HBNB_MYSQL_USER')
@@ -35,21 +32,19 @@ class DBStorage:
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                format(user, passwd, host, db),
                                pool_pre_ping=True)
-        if getenv('HBNB') == "test":
+        if getenv('HBNB_ENV') == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """ Return a dictionary """
         new_dict = {}
+        classes = [State, User, City, Place, Amenity, Review]
         if cls is None:
-            for cls_iter in DBStorage.classes.values():
-                for obj in self.__session.query(cls_iter).all():
-                    new_dict[obj.__class__.__name__ + "." + obj.id] = obj
+            for obj in self.__session.query(classes).all():
+                new_dict[obj.__class__.__name__ + "." + obj.id] = obj.to_dict()
         else:
-            if cls in DBStorage.classes.values():
-                for obj in self.__session.query(cls).all():
-                    new_dict[obj.__class__.__name__ + "." + obj.id] = obj
-                print ("se encontro")
+            for obj in self.__session.query(eval(cls)).all():
+                new_dict[obj.__class__.__name__ + "." + obj.id] = obj.to_dict()
         return new_dict
 
     def new(self, obj):
