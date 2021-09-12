@@ -43,7 +43,7 @@ class DBStorage:
             for obj in self.__session.query(classes).all():
                 new_dict[obj.__class__.__name__ + "." + obj.id] = obj.to_dict()
         else:
-            for obj in self.__session.query(eval(cls)).all():
+            for obj in self.__session.query(cls).all():
                 new_dict[obj.__class__.__name__ + "." + obj.id] = obj.to_dict()
         return new_dict
 
@@ -69,4 +69,4 @@ class DBStorage:
 
     def close(self):
         """ call remove() method on the private session attribute """
-        self.__session.remove()
+        self.__session.close()
